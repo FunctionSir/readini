@@ -2,11 +2,12 @@
  * @Author: FunctionSir
  * @License: AGPLv3
  * @Date: 2025-04-05 23:31:47
- * @LastEditTime: 2025-04-06 00:59:49
+ * @LastEditTime: 2025-04-06 01:42:49
  * @LastEditors: FunctionSir
  * @Description: Simple go library to read INI file.
  * @FilePath: /readini/readini.go
  */
+
 package readini
 
 import (
