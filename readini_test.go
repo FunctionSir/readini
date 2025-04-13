@@ -2,7 +2,7 @@
  * @Author: FunctionSir
  * @License: AGPLv3
  * @Date: 2025-04-06 00:15:04
- * @LastEditTime: 2025-04-06 01:22:09
+ * @LastEditTime: 2025-04-13 18:03:50
  * @LastEditors: FunctionSir
  * @Description: -
  * @FilePath: /readini/readini_test.go
@@ -13,7 +13,7 @@ import (
 	"testing"
 )
 
-var testStrOK string = "KeyA=ValA\n [SomeSection]\n 第二个键🚩 = 初音 ミク／はつねミク Hatsune Miku 🚩 来自中文维基百科"
+var testStrOK string = "KeyA=ValA\n [     SomeSection   ]\n 第二个键🚩 = 初音 ミク／はつねミク Hatsune Miku 🚩 来自中文维基百科"
 var testStrErr string = "KeyA = ValA\n [SomeSection \n KeyB=ValB"
 
 var testFileOk string = "testFileOK.conf"
