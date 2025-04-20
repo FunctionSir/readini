@@ -2,7 +2,7 @@
  * @Author: FunctionSir
  * @License: AGPLv3
  * @Date: 2025-04-05 23:30:03
- * @LastEditTime: 2025-04-06 01:35:25
+ * @LastEditTime: 2025-04-20 22:33:21
  * @LastEditors: FunctionSir
  * @Description: -
  * @FilePath: /readini/README.md
@@ -11,7 +11,7 @@
 
 A simple Go library to read ini files.
 
-Current ver is 0.1.0.
+Current ver is 0.2.0.
 
 100% coverage tested.
 
