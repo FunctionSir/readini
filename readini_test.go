@@ -2,11 +2,12 @@
  * @Author: FunctionSir
  * @License: AGPLv3
  * @Date: 2025-04-06 00:15:04
- * @LastEditTime: 2025-04-13 18:03:50
+ * @LastEditTime: 2025-04-20 22:31:21
  * @LastEditors: FunctionSir
  * @Description: -
  * @FilePath: /readini/readini_test.go
  */
+
 package readini
 
 import (
@@ -51,6 +52,13 @@ func TestLoadFromFile(t *testing.T) {
 	if res["SomeSection"]["第二个键🚩"] != "初音 ミク／はつねミク Hatsune Miku 🚩 来自中文维基百科" {
 		t.Errorf("Val of \"第二个键🚩\" in section \"SomeSection\" should be \"初音 ミク／はつねミク Hatsune Miku 🚩 来自中文维基百科\", but %s found",
 			res["SomeSection"]["第二个键🚩"])
+	}
+	sec := res["SomeSection"]
+	if !sec.HasKey("第二个键🚩") {
+		t.Errorf("There has key \"第二个键🚩\" in section \"SomeSection\", but got false")
+	}
+	if sec.HasKey("第三个键🚩") {
+		t.Errorf("There has no key \"第三个键🚩\" in section \"SomeSection\", but got true")
 	}
 	_, err = LoadFromFile(testFileErr)
 	if err == nil {

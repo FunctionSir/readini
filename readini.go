@@ -2,7 +2,7 @@
  * @Author: FunctionSir
  * @License: AGPLv3
  * @Date: 2025-04-05 23:31:47
- * @LastEditTime: 2025-04-06 01:42:49
+ * @LastEditTime: 2025-04-20 22:23:27
  * @LastEditors: FunctionSir
  * @Description: Simple go library to read INI file.
  * @FilePath: /readini/readini.go
@@ -18,10 +18,19 @@ import (
 
 // You should read from vars of this type only, do NOT write.
 // Write operations might cause data-race.
-type Conf map[string](map[string]string)
+type Sec map[string]string
+
+// You should read from vars of this type only, do NOT write.
+// Write operations might cause data-race.
+type Conf map[string]Sec
 
 // Wrong format in INI file.
 var ErrWrongFormat = errors.New("wrong config file format")
+
+func (s Sec) HasKey(key string) bool {
+	_, hasKey := s[key]
+	return hasKey
+}
 
 func (c Conf) HasSection(section string) bool {
 	_, hasSection := c[section]
@@ -32,8 +41,7 @@ func (c Conf) HasKey(section, key string) bool {
 	if !c.HasSection(section) {
 		return false
 	}
-	_, hasKey := c[section][key]
-	return hasKey
+	return c[section].HasKey(key)
 }
 
 // Split key and value.
