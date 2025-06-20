@@ -2,7 +2,7 @@
  * @Author: FunctionSir
  * @License: AGPLv3
  * @Date: 2025-04-05 23:31:47
- * @LastEditTime: 2025-04-20 22:23:27
+ * @LastEditTime: 2025-06-20 09:09:16
  * @LastEditors: FunctionSir
  * @Description: Simple go library to read INI file.
  * @FilePath: /readini/readini.go
@@ -49,6 +49,7 @@ func splitKeyAndValue(s *string) (string, string) {
 	runeList := []rune(*s)
 	key := make([]rune, 0)
 	value := make([]rune, 0)
+	processedValue := make([]rune, 0)
 	var i int = 0
 	for i = range runeList {
 		if runeList[i] == '=' {
@@ -59,8 +60,21 @@ func splitKeyAndValue(s *string) (string, string) {
 	for i = i + 1; i < len(runeList); i++ {
 		value = append(value, runeList[i])
 	}
+	trimedValue := strings.TrimSpace(string(value))
+	tmp := []rune(trimedValue)
+	l := 0
+	r := len(tmp) - 1
+	if tmp[l] == '"' {
+		l++
+	}
+	if tmp[r] == '"' {
+		r--
+	}
+	for i := l; i <= r; i++ {
+		processedValue = append(processedValue, tmp[i])
+	}
 	return strings.TrimSpace(string(key)),
-		strings.TrimSpace(string(value))
+		string(processedValue)
 }
 
 // Load INI from file.

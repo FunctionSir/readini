@@ -2,7 +2,7 @@
  * @Author: FunctionSir
  * @License: AGPLv3
  * @Date: 2025-04-06 00:15:04
- * @LastEditTime: 2025-04-20 22:31:21
+ * @LastEditTime: 2025-06-20 09:13:22
  * @LastEditors: FunctionSir
  * @Description: -
  * @FilePath: /readini/readini_test.go
@@ -14,7 +14,7 @@ import (
 	"testing"
 )
 
-var testStrOK string = "KeyA=ValA\n [     SomeSection   ]\n 第二个键🚩 = 初音 ミク／はつねミク Hatsune Miku 🚩 来自中文维基百科"
+var testStrOK string = "KeyA=ValA\n [     SomeSection   ]\n 第二个键🚩 = 初音 ミク／はつねミク Hatsune Miku 🚩 来自中文维基百科\n[   AnotherSection]\nWoW  =  \"   123\""
 var testStrErr string = "KeyA = ValA\n [SomeSection \n KeyB=ValB"
 
 var testFileOk string = "testFileOK.conf"
@@ -82,6 +82,9 @@ func TestLoadFromRunes(t *testing.T) {
 	if !res.HasSection("SomeSection") {
 		t.Errorf("Should have section \"SomeSection\", but it said it doesn't have")
 	}
+	if !res.HasSection("AnotherSection") {
+		t.Errorf("Should have section \"AnotherSection\", but it said it doesn't have")
+	}
 	if res[""]["KeyA"] != "ValA" {
 		t.Errorf("Val of \"KeyA\" be \"ValA\", but %s found",
 			res[""]["KeyA"])
@@ -89,6 +92,9 @@ func TestLoadFromRunes(t *testing.T) {
 	if res["SomeSection"]["第二个键🚩"] != "初音 ミク／はつねミク Hatsune Miku 🚩 来自中文维基百科" {
 		t.Errorf("Val of \"第二个键🚩\" in section \"SomeSection\" should be \"初音 ミク／はつねミク Hatsune Miku 🚩 来自中文维基百科\", but %s found",
 			res["SomeSection"]["第二个键🚩"])
+	}
+	if res["AnotherSection"]["WoW"] != "   123" {
+		t.Errorf("Val of \"WoW\" in section \"AnotherSection\" should be \"   123\", but %s found", res["AnotherSection"]["WoW"])
 	}
 	_, err = LoadFromRunes([]rune(testStrErr))
 	if err == nil {
